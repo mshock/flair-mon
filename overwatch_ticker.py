@@ -92,6 +92,10 @@ def print_start():
 	 ''')
 		#ticker_file.write(" <font color='white'>STAT\t{0:<10} -> {1:10}</font><br>\n".format('From', 'To'))
 		ticker_file.close()
+
+# def write_ticker(user, to_flair, from_flair):
+	# conn.execute("insert into ticker_text (user, to_flair, from_flair) values ('{}', '{}', '{}')".format(user, to_flair, from_flair))
+	# conn.commit()
 	
 # move css tag lookups to external file
 heroes = dict(zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(), [0] * 21))
@@ -104,15 +108,15 @@ while True:
 	clear()
 	print_start()
 	print("\n")
-	ticker = conn.execute("select flair_id, prev_id from ticker order by id desc limit {};".format(num_rows)).fetchall()
+	ticker = conn.execute("select user, flair_id, prev_id from ticker order by id desc limit {};".format(num_rows)).fetchall()
 
-	for (to_flair, from_flair) in ticker:
+	for (user, to_flair, from_flair) in ticker:
 		to_name = conn.execute("select name from flair where id = {}".format(to_flair)).fetchone()[0]
 		to_name = get_name(to_name)
 		if from_flair != 0: 
 			from_name = conn.execute("select name from flair where id = {}".format(from_flair)).fetchone()[0]
 			from_name = get_name(from_name)
-			line = " [UPD]\t{0:<10} -> {1:<10}".format(from_name, to_name)
+			line = " [UPD]\t{0:<20} : {1:<10} -> {2:<10}".format(user, from_name, to_name)
 			if to_flair == 1: 
 				print(red(line))
 				print_file('red', line)
@@ -123,7 +127,7 @@ while True:
 				print(yellow(line))
 				print_file('yellow', line)
 		else:
-			line = " [NEW]\t{0:<10}".format(to_name);
+			line = " [NEW]\t{0:<20} : {1:<10}".format(user, to_name);
 			if to_flair == 1: 
 				print(magenta(line))
 				print_file('magenta', line)

@@ -69,18 +69,19 @@ unique (from_flair, to_flair)
 
 conn.execute('''create table if not exists ticker
 (id integer primary key autoincrement,
+user text not null,
 flair_id int not null,
 prev_id int
 )
 ''')
 
-conn.execute('''create table if not exists ticker_text
-(id integer primary key autoincrement,
-user text not null,
-from_flair text not null,
-to_flair text not null
-)
-''')
+# conn.execute('''create table if not exists ticker_text
+# (id integer primary key autoincrement,
+# user text not null,
+# from_flair text not null,
+# to_flair text not null
+# )
+# ''')
 
 conn.execute('''create table if not exists scoreboard
 (id integer primary key autoincrement,
@@ -208,7 +209,7 @@ while True:
 						conn.execute("insert or replace into user(name, flair_id) values ('{0}', {1})".format(submission.author, flair_id))
 						conn.commit()
 						if recently_flaired or flair_change:
-							conn.execute("insert into ticker(flair_id, prev_id) values ({}, {})".format(flair_id, flair_prev))
+							conn.execute("insert into ticker(user, flair_id, prev_id) values ('{}', {}, {})".format(submission.author, flair_id, flair_prev))
 							conn.commit()
 				
 				
@@ -234,7 +235,7 @@ while True:
 						conn.execute("insert or replace into user(name, flair_id) values ('{0}', {1})".format(comment.author, flair_id))
 						conn.commit()
 						if recently_flaired or flair_change:
-							conn.execute("insert into ticker(flair_id, prev_id) values ({}, {})".format(flair_id, flair_prev))
+							conn.execute("insert into ticker(user, flair_id, prev_id) values ('{}', {}, {})".format(comment.author, flair_id, flair_prev))
 							conn.commit()
 			if num_subs == 0: 
 					print('post limit reached, switching sort type and restarting...')
