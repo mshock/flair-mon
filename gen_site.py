@@ -72,6 +72,7 @@ def print_end():
 
 num_rows = 25
 conn = sqlite3.connect('overwatch.db')
+conn_scoreboard = sqlite3.connect('overwatch-scoreboard.db')
 html_file = open('index.html', 'w')
 print_start()
 # insert ticker
