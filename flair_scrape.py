@@ -32,7 +32,7 @@ if (drop_tables):
 	conn.execute("drop table if exists flair;")
 	conn.execute("drop table if exists page;")
 	conn.execute("drop table if exists change;")
-	conn.execute("drop table if exists ticker;")
+	conn.execute("drop table if exists ticker2;")
 
 # add timestamps
 conn.execute('''create table if not exists user
