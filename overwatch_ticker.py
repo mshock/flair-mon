@@ -8,7 +8,7 @@ clear = lambda: os.system('cls') if os.name == 'nt' else os.system('clear')
 
 sleep_dur = 5
 num_rows = 21
-print_index = True
+print_index = False
 
 def get_name(css): 
 	for hero in heroes: 

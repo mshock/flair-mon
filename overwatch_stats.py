@@ -7,7 +7,7 @@ import os
 clear = lambda: os.system('cls') if os.name == 'nt' else os.system('clear')
 from colors import red, green, yellow, magenta, cyan
 
-print_index = True
+print_index = False
 
 conn = sqlite3.connect('overwatch.db')
 

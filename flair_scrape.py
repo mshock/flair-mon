@@ -71,6 +71,23 @@ prev_id int
 )
 ''')
 
+conn.execute('''create table if not exists ticker_text
+(id integer primary key autoincrement,
+from_flair text not null,
+to_flair text not null
+)
+''')
+
+conn.execute('''create table if not exists scoreboard
+(id integer primary key autoincrement,
+rank integer not null,
+name text not null,
+count integer,
+percent real,
+unique (name)
+)
+''')
+
 print('db tables initialized')
 
 def print_file(color, text): 
