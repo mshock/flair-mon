@@ -21,6 +21,8 @@ process_dups = True
 user_auth = False
 drop_tables = False
 
+# refactor database connection/creation into new class/file
+
 conn = sqlite3.connect(subreddit + '.db')
 
 print("db connection successful")
@@ -32,6 +34,7 @@ if (drop_tables):
 	conn.execute("drop table if exists change;")
 	conn.execute("drop table if exists ticker;")
 
+# add timestamps
 conn.execute('''create table if not exists user
 (id integer primary key autoincrement,
 name text not null,
@@ -73,6 +76,7 @@ prev_id int
 
 conn.execute('''create table if not exists ticker_text
 (id integer primary key autoincrement,
+user text not null,
 from_flair text not null,
 to_flair text not null
 )
@@ -84,6 +88,8 @@ rank integer not null,
 name text not null,
 count integer,
 percent real,
+change integer,
+shift integer,
 unique (name)
 )
 ''')
@@ -178,6 +184,8 @@ while True:
 				comments = praw.helpers.flatten_tree(submission.comments)
 				print("[{0}] parsing page: {1} - ({2}) <{3}> {4}".format(process_prefix, after, submission.score, len(comments), submission.title[:85].encode('ascii', 'replace')))
 				
+				# refactor insert/update, doing this for both author and commenters
+				
 				if (hasattr(submission,'author_flair_css_class') and submission.author_flair_css_class is not None):
 						conn.execute("insert or ignore into flair(name) values ('{0}')".format(submission.author_flair_css_class))
 						(flair_id, flair_name) = conn.execute("select id, name from flair where name = '{0}'".format(submission.author_flair_css_class)).fetchone()
@@ -249,6 +257,7 @@ while True:
 				print("sleeping: %f\n" % (sleep_time))
 				time.sleep(sleep_time)
 			first = False
+	# need to catch various PRAW errors
 	except: 
 			print("\nHTTP Error (probably)")
 			print("sleeping 30 seconds...\n")

@@ -34,10 +34,24 @@ def print_end():
 		hosted_file = open('index.html','w')
 		hosted_file.write(ticker_file.read())
 		hosted_file.write(score_file.read())
-		hosted_file.write("</table></body></html>");
+		hosted_file.write("</table></body></html>")
 		hosted_file.close()
 		ticker_file.close()
 		score_file.close()
+		
+def write_score(rank, name, count, percent, change, shift): 
+	if shift == '+++':
+		shift = 1
+	elif shift == '---':
+		shift = -1
+	else: 
+		shift = 0
+	
+	if change == '': 
+		change = 0
+	
+	conn.execute("insert or replace into scoreboard (rank, name, count, percent, change, shift) values ({}, '{}', {}, {}, {}, {})".format(rank, name, count, "%.2f" % percent, change, shift))
+	conn.commit()
 		
 first = True
 hero_ranks = {}
@@ -49,6 +63,7 @@ while True:
 	print_start()
 	print("\n\n")
 	counts = conn.execute('select b.name, count(a.flair_id) from user a, flair b on a.flair_id = b.id group by b.name').fetchall()
+	# move css tag lookups to external file
 	heroes = dict(zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(), [0] * 21))
 	css_lookup = dict(zip('DVa Symmetra Mercy Mei Lucio Winston Junkrat Roadhog Zarya Reaper Soldier76 Tracer Pharah Genji Reinhardt Mccree Widowmaker Bastion Zenyatta Torbjorn Hanzo'.split(),
 		'R19 R10 R13 R18 R15 R06 R17 R16 R08 R05 R02 R14 R07 R20 R09 R04 R01 R11 R00 R03 R12'.split()))
@@ -103,6 +118,9 @@ while True:
 			hero_change2[hero],
 			hero_change[hero]
 		)))
+		
+		write_score(i+1, hero, hero_count, (hero_count / float(total_flaired)) * 100, hero_change2[hero], hero_change[hero])
+		
 		print_file(color_text, "\t[{0}]\t{1:<10} : {2:<5} - {3:>5.2f}% {4:<5} {5:<3}".format(
 			i+1, 
 			hero, 
