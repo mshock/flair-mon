@@ -108,7 +108,7 @@ while True:
 	clear()
 	print_start()
 	print("\n")
-	ticker = conn.execute("select user, flair_id, prev_id from ticker order by id desc limit {};".format(num_rows)).fetchall()
+	ticker = conn.execute("select user, flair_id, prev_id from ticker2 order by id desc limit {};".format(num_rows)).fetchall()
 
 	for (user, to_flair, from_flair) in ticker:
 		to_name = conn.execute("select name from flair where id = {}".format(to_flair)).fetchone()[0]
