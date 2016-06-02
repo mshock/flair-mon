@@ -83,18 +83,6 @@ prev_id int
 # )
 # ''')
 
-conn.execute('''create table if not exists scoreboard
-(id integer primary key autoincrement,
-rank integer not null,
-name text not null,
-count integer,
-percent real,
-change integer,
-shift integer,
-unique (name)
-)
-''')
-
 print('db tables initialized')
 
 def print_file(color, text): 

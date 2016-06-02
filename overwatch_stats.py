@@ -9,7 +9,24 @@ from colors import red, green, yellow, magenta, cyan
 
 print_index = False
 
-conn = sqlite3.connect('overwatch.db')
+# move to config file
+subreddit = 'overwatch'
+
+conn = sqlite3.connect(subreddit + '.db')
+
+conn_scoreboard = sqlite3.connect(subreddit + '-scoreboard.db')
+
+conn_scoreboard.execute('''create table if not exists scoreboard
+(id integer primary key autoincrement,
+rank integer not null,
+name text not null,
+count integer,
+percent real,
+change integer,
+shift integer,
+unique (name)
+)
+''')
 
 print("\ndb connection successful\n")
 
@@ -50,8 +67,8 @@ def write_score(rank, name, count, percent, change, shift):
 	if change == '': 
 		change = 0
 	
-	conn.execute("insert or replace into scoreboard (rank, name, count, percent, change, shift) values ({}, '{}', {}, {}, {}, {})".format(rank, name, count, "%.2f" % percent, change, shift))
-	conn.commit()
+	conn_scoreboard.execute("insert or replace into scoreboard (rank, name, count, percent, change, shift) values ({}, '{}', {}, {}, {}, {})".format(rank, name, count, "%.2f" % percent, change, shift))
+	conn_scoreboard.commit()
 		
 first = True
 hero_ranks = {}
@@ -70,7 +87,7 @@ while True:
 	total_flaired = 0
 	total = 0
 
-	for hero in heroes: 
+	for hero in heroes:
 		for flair_css, count in counts:
 			if hero in flair_css or css_lookup[hero] in flair_css:
 				heroes[hero] += count
