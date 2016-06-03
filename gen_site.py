@@ -121,7 +121,7 @@ def print_scoreboard():
 	''')
 	
 	for rank, name, count, percent, change, shift in scores: 
-		score_color = 'Red'
+		score_color = 'FireBrick'
 		if rank <= 5: 
 			score_color = 'Green'
 		elif rank <= 10:
