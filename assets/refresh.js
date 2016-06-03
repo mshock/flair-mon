@@ -2,7 +2,7 @@
 setInterval(function() {
 	var reload = false;
 	$.ajax({
-		url: 'http://www.overwatchflair.com',
+		url: 'http://overwatchflair.com',
 		type: "GET",
 		statusCode: {
 			404: function() {
@@ -16,6 +16,7 @@ setInterval(function() {
 				reload = true;
 			},
 		},
-		error: function() {alert('success!')}
+		success: function() {alert('success!')},
+		error: function() {alert('error!')},
 	});	
 }, 5000);
