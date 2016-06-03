@@ -46,6 +46,7 @@ def print_ticker():
 	<table class='table table-striped'>
 	''')
 	for user, flair_to, flair_from in ticks:
+		#TODO: do flair css lookup for nonstandard flair names
 		tick_type = 'UPD'
 		tick_color = 'FireBrick'
 		if flair_from is None and flair_to == 'default': 
@@ -58,6 +59,10 @@ def print_ticker():
 		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>>></td><td>{}</td></tr>\n".format(tick_color, tick_type, user, flair_from, flair_to))
 		
 	html_file.write("</table></div>")
+
+def print_scoreboard(): 
+	
+
 num_rows = 25
 conn = sqlite3.connect('overwatch.db')
 conn_scoreboard = sqlite3.connect('overwatch-scoreboard.db')
@@ -66,6 +71,7 @@ print_start()
 # insert ticker
 print_ticker()
 # insert scoreboard
+print_scoreboard()
 print_end()
 html_file.close()
 
