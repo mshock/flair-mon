@@ -4,27 +4,14 @@ setInterval(function() {
 	$.ajax({
 		url: 'http://overwatchflair.com',
 		type: "get",
-		statusCode: {
-			404: function() {
-				//alert( "page not found" );
-			},
-			304: function() { 
-				//alert( "page not updated" );
-			},
-			200: function() { 
-				//alert("page retrieved!");
-				reload = true;
-			},
-		},
-		success: function() {
-			//alert('success!')
-			if(reload) {
-				$('.ticker').text('');
-				$('.scoreboard').text('');
+		success: function(data, textStatus, xhr) {
+			if (xhr.status == 200) {
+				$('.ticker').html($(data).find('.ticker').html());
+				$('.scoreboard').html($(data).find('.scoreboard').html());
 			}
 		},
 		error: function() {
-			//alert('error!'
-		)},
+			//alert('error!')
+		},
 	});	
 }, 5000);
