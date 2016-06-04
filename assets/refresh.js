@@ -6,9 +6,9 @@ setInterval(function() {
 		type: "get",
 		success: function(data, textStatus, xhr) {
 			if (xhr.status == 200) {
+				$('.user_counts').html($(data).find('.user_counts').html());
 				$('.ticker').html($(data).find('.ticker').html());
 				$('.scoreboard').html($(data).find('.scoreboard').html());
-				$('.user-counts').html($(data).find('.user-counts').html());
 			}
 		},
 		error: function() {

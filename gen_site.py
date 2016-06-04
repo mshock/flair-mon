@@ -70,8 +70,8 @@ def print_start():
 	'''
 	<div class='container'>
 		<div class='jumbotron'>
-		<div class='table-responsive user-counts'>
-				<table>
+		<div class='table-responsive'>
+				<table class='user_counts'>
 				<tr>
 				<td>
 				<a href='http://www.reddit.com/r/overwatch'>
