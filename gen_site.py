@@ -136,9 +136,9 @@ def print_scoreboard():
 			shift_text = '---'
 		
 		if change >= 0: 
-			change = '+' + change
+			change = '+' + str(change)
 		else:
-			change = '-' + change
+			change = '-' + str(change)
 		
 		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>{}%</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, count, percent, change, shift_text))
 		
