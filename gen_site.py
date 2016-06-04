@@ -24,7 +24,9 @@ def print_start():
 			font-family: 'Lucida Console', Monaco, monospace;
 			font-weight: bold;
 		}
-		h5 {color: #eee}
+		h5 {
+			color: #eee;
+			}
 		h4 {color: darkgrey}
 		h3 {text-align: center;}
 		.scoreboard {
@@ -64,6 +66,7 @@ def print_start():
 	</style>
 	<div class='container'>
 		<div class='jumbotron'>
+		<div class='table-responsive'>
 				<table>
 				<tr>
 				<td>
@@ -78,10 +81,11 @@ def print_start():
 				<td style='white-space:nowrap; padding-left: 2em; padding-top: 1em;'>
 				<h4>(refreshes automatically)</h4>
 				</td>
-				<td>
+				<td style='padding-left:1em;'>
 				<h5>created by /u/mschock</h5>
 				</td>
 				</tr></table>
+		</div>
 		</div>
 		
 	 ''')
