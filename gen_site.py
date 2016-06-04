@@ -103,16 +103,25 @@ def print_color(color, text):
 def print_ticker(): 
 	ticks = conn.execute("select a.user, b.name, c.name from ticker2 a join flair b on b.id = a.flair_id left join flair c on c.id = a.prev_id order by a.id desc limit {}".format(num_rows)).fetchall()
 	html_file.write('''
-	<div class='col-xs-6 ticker'>
-	<h3 class='sub-header'>Ticker</h3>
-	<table class='table table-striped'>
+		<div class='col-xs-6 ticker'>
+		<div class='table-responsive'>
+		<h3 class='sub-header'>Ticker</h3>
+		<table class='table table-striped'>
+		<tr>
+			<th>Type</th>
+			<th>User</th>
+			<th>From</th>
+			<th></th>
+			<th>To</th>
+		</tr>
 	''')
+	
 	for user, flair_to, flair_from in ticks:
 		if flair_from is not None:
 			flair_from = get_name(flair_from)
 		flair_to = get_name(flair_to)
 		tick_type = 'UPD'
-		tick_color = 'FireBrick'
+		tick_color = 'DarkOrange'
 		if flair_from is None and flair_to == 'default': 
 			tick_type = 'NEW'
 			tick_color = 'Green'
@@ -124,19 +133,28 @@ def print_ticker():
 			tick_color = 'Sienna'
 		elif flair_to != 'default': 
 			tick_type = 'UPD'
-			tick_color = 'DarkOrange'
+			tick_color = 'FireBrick'
 		
 		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>>></td><td>{}</td></tr>\n".format(tick_color, tick_type, user, flair_from, flair_to))
 		
-	html_file.write("</table></div>")
+	html_file.write("</table></div></div>")
 
 def print_scoreboard(): 
 	scores = conn_scoreboard.execute("select rank, name, count, percent, change, shift from scoreboard order by rank asc").fetchall()
 	
 	html_file.write('''
 	<div class='col-xs-6 scoreboard'>
+	<div class='table-responsive'>
 	<h3 class='sub-header'>Scoreboard</h3>
 	<table class='table table-striped'>
+	<tr>
+	<th>Rank</th>
+	<th>Hero</th>
+	<th>Count</th>
+	<th>Percent</th>
+	<th>Change</th>
+	<th></th>
+	</tr>
 	''')
 	
 	for rank, name, count, percent, change, shift in scores: 
@@ -159,7 +177,7 @@ def print_scoreboard():
 		
 		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>{}%</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, count, percent, change, shift_text))
 		
-	html_file.write("</table></div>")
+	html_file.write("</table></div></div>")
 
 def get_name(css): 
 	for hero in heroes: 
