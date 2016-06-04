@@ -71,7 +71,7 @@ def print_start():
 	<div class='container'>
 		<div class='jumbotron'>
 		<div class='table-responsive'>
-				<table class='user_counts'>
+				<table>
 				<tr>
 				<td>
 				<a href='http://www.reddit.com/r/overwatch'>
@@ -82,7 +82,7 @@ def print_start():
 				<a href='http://www.reddit.com/r/overwatch'><h2>/r/Overwatch Flair</h2></a>
 				
 				</td>
-				<td style='white-space:nowrap; padding-left: 2em; padding-top: 1em;'>
+				<td style='white-space:nowrap; padding-left: 2em; padding-top: 1em;' class='user_counts'>
 				<h4>( refreshes automatically )</h4>
 					<table>
 					<tr>
