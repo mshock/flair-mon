@@ -1,14 +1,9 @@
 #!/usr/bin/python
 
 import sqlite3
-import os
-import configparser
 import time
 
-config = configparser.ConfigParser()
-config.read('flair_parse.cfg')
-os.chdir(config.get('server', 'path'))
-
+# TODO: bring into config file 
 num_rows = 21
 
 def print_start():

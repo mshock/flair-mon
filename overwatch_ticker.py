@@ -6,6 +6,7 @@ import time
 import os
 clear = lambda: os.system('cls') if os.name == 'nt' else os.system('clear')
 
+# TODO: bring into config file
 sleep_dur = 5
 num_rows = 21
 print_index = False
