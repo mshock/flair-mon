@@ -198,7 +198,7 @@ while True:
 						conn.commit()
 						if recently_flaired or flair_change:
 							
-							if (conn.execute("select count(1) from ticker2 where user = '{}' and id >= (select max(id) from ticker2) - 21".format(comment.author)).fetchone()[0] == 0):
+							if (conn.execute("select count(1) from ticker2 where user = '{}' and id >= (select max(id) from ticker2) - 21".format(submission.author)).fetchone()[0] == 0):
 								conn.execute("insert into ticker2(user, flair_id, prev_id) values ('{}', {}, {})".format(submission.author, flair_id, flair_prev))
 								conn.commit()
 				
