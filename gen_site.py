@@ -93,7 +93,7 @@ def print_start():
 					</table>
 				</td>
 				<td style='padding-left:1em;'>
-				<h5>created by /u/mschock</h5>
+				<h5>cobbled together by /u/mschock</h5>
 				</td>
 				</tr></table>
 		</div>
