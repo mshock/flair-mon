@@ -7,6 +7,8 @@ import time
 num_rows = 21
 
 def print_start():
+	total_flaired = conn.execute("select count(1) from user where flair_id != 1").fetchone()[0]
+	total_users = conn.execute("select count(1) from user").fetchone()[0]
 	html_file.write('''<!DOCTYPE html>
 	<html>
 	<head>
@@ -64,6 +66,8 @@ def print_start():
 		a:active { text-decoration: none;}
 		
 	</style>
+	''' +
+	'''
 	<div class='container'>
 		<div class='jumbotron'>
 		<div class='table-responsive'>
@@ -79,7 +83,14 @@ def print_start():
 				
 				</td>
 				<td style='white-space:nowrap; padding-left: 2em; padding-top: 1em;'>
-				<h4>(refreshes automatically)</h4>
+				<h4>( refreshes automatically )</h4>
+					<table>
+					<tr>
+					<td>
+					( <font color='DarkGreen'>{0:<6} </font> / <font color='DarkRed'> {1:<6} </font>) - <font color='GoldenRod'>{2:>3.2f}%</font> users flaired
+					</td>
+					</tr>
+					</table>
 				</td>
 				<td style='padding-left:1em;'>
 				<h5>created by /u/mschock</h5>
@@ -88,7 +99,7 @@ def print_start():
 		</div>
 		</div>
 		
-	 ''')
+	 '''.format(total_flaired, total_users, (total_flaired / float(total_users)) * 100))
 	
 def print_end(): 
 	html_file.write("</div></div><br></body></html>")
