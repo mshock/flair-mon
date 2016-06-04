@@ -21,7 +21,7 @@ process_dups = True
 user_auth = False
 drop_tables = False
 
-# refactor database connection/creation into new class/file
+# TODO: refactor database connection/creation into new class/file
 
 conn = sqlite3.connect(subreddit + '.db')
 
@@ -34,7 +34,7 @@ if (drop_tables):
 	conn.execute("drop table if exists change;")
 	conn.execute("drop table if exists ticker2;")
 
-# add timestamps
+# TODO: add timestamps
 conn.execute('''create table if not exists user
 (id integer primary key autoincrement,
 name text not null,
@@ -156,7 +156,7 @@ while True:
 				num_subs += 1
 				after = submission.name
 				
-				# pull save user to function so that don't have to repeat updated users code etc.
+				# TODO: pull save user to function so that don't have to repeat updated users code etc.
 
 				prev_after = after
 				
@@ -173,7 +173,7 @@ while True:
 				comments = praw.helpers.flatten_tree(submission.comments)
 				print("[{0}] parsing page: {1} - ({2}) <{3}> {4}".format(process_prefix, after, submission.score, len(comments), submission.title[:85].encode('ascii', 'replace')))
 				
-				# refactor insert/update, doing this for both author and commenters
+				# TODO: refactor insert/update, doing this for both author and commenters
 				
 				if (hasattr(submission,'author_flair_css_class') and submission.author_flair_css_class is not None):
 						conn.execute("insert or ignore into flair(name) values ('{0}')".format(submission.author_flair_css_class))
@@ -197,8 +197,10 @@ while True:
 						conn.execute("insert or replace into user(name, flair_id) values ('{0}', {1})".format(submission.author, flair_id))
 						conn.commit()
 						if recently_flaired or flair_change:
-							conn.execute("insert into ticker2(user, flair_id, prev_id) values ('{}', {}, {})".format(submission.author, flair_id, flair_prev))
-							conn.commit()
+							
+							if (conn.execute("select count(1) from ticker2 where user = '{}' and id >= (select max(id) from ticker2) - 21".format(comment.author)).fetchone()[0] == 0):
+								conn.execute("insert into ticker2(user, flair_id, prev_id) values ('{}', {}, {})".format(submission.author, flair_id, flair_prev))
+								conn.commit()
 				
 				
 				for comment in comments: 
@@ -223,8 +225,9 @@ while True:
 						conn.execute("insert or replace into user(name, flair_id) values ('{0}', {1})".format(comment.author, flair_id))
 						conn.commit()
 						if recently_flaired or flair_change:
-							conn.execute("insert into ticker2(user, flair_id, prev_id) values ('{}', {}, {})".format(comment.author, flair_id, flair_prev))
-							conn.commit()
+							if (conn.execute("select count(1) from ticker2 where user = '{}' and id >= (select max(id) from ticker2) - 21".format(comment.author)).fetchone()[0] == 0):
+								conn.execute("insert into ticker2(user, flair_id, prev_id) values ('{}', {}, {})".format(comment.author, flair_id, flair_prev))
+								conn.commit()
 			if num_subs == 0: 
 					print('post limit reached, switching sort type and restarting...')
 					current_get_type = current_get_type[-1:] + current_get_type[:-1]
@@ -247,6 +250,7 @@ while True:
 				time.sleep(sleep_time)
 			first = False
 	# need to catch various PRAW errors
+	# TODO: figure out all the error classes and catch explicitly
 	except: 
 			print("\nHTTP Error (probably)")
 			print("sleeping 30 seconds...\n")
