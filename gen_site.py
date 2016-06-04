@@ -57,6 +57,15 @@ def print_start():
 			margin-bottom: 15px;
 			padding: 5px;
 		}
+		a {
+			color: royalblue;
+		}
+		a:hover {
+			color: goldenrod;
+		}
+		a:visited{ text-decoration: none;}
+		a:active { text-decoration: none;}
+		
 	</style>
 	<div class='container'>
 		<div class='jumbotron'>
@@ -68,7 +77,7 @@ def print_start():
 				</a>
 				</td>
 				<td style='white-space:nowrap'>
-				<h2>Overwatch Flair</h2>
+				<a href='http://www.reddit.com/r/overwatch'><h2>/r/Overwatch Flair</h2></a>
 				
 				</td>
 				<td style='white-space:nowrap; padding-left: 2em; padding-top: 1em;'>
@@ -106,13 +115,16 @@ def print_ticker():
 		tick_color = 'FireBrick'
 		if flair_from is None and flair_to == 'default': 
 			tick_type = 'NEW'
-			tick_color = 'RoyalBlue'
-		elif flair_to != 'default':
-			tick_type = 'UPD'
 			tick_color = 'Green'
+		elif flair_to != 'default' and flair_from is None:
+			tick_type = 'UPD'
+			tick_color = 'RoyalBlue'
 		elif flair_from == flair_to:
 			tick_type = 'UPD'
 			tick_color = 'Sienna'
+		elif flair_to != 'default': 
+			tick_type = 'UPD'
+			tick_color = 'DarkOrange'
 		
 		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>>></td><td>{}</td></tr>\n".format(tick_color, tick_type, user, flair_from, flair_to))
 		
@@ -144,8 +156,6 @@ def print_scoreboard():
 		
 		if change >= 0: 
 			change = '+' + str(change)
-		else:
-			change = '-' + str(change)
 		
 		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>{}%</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, count, percent, change, shift_text))
 		
