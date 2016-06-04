@@ -129,7 +129,12 @@ def print_scoreboard():
 		elif rank <= 15: 
 			score_color = 'Sienna'
 
-		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, count, percent, change, shift))
+		shift_text = ''
+		if shift == 1: 
+			shift_text = '+++'
+		elif shift == -1:
+			shift_text = '---'
+		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, count, percent, change, shift_text))
 		
 	html_file.write("</table></div>")
 
