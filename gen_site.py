@@ -1,8 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 import sqlite3
 import os
 import configparser
+import time
 
 config = configparser.ConfigParser()
 config.read('flair_parse.cfg')
@@ -162,12 +163,14 @@ css_lookup = dict(zip('DVa Symmetra Mercy Mei Lucio Winston Junkrat Roadhog Zary
 
 conn = sqlite3.connect('overwatch.db')
 conn_scoreboard = sqlite3.connect('overwatch-scoreboard.db')
-html_file = open('index.html', 'w')
-print_start()
-# insert ticker
-print_ticker()
-# insert scoreboard
-print_scoreboard()
-print_end()
-html_file.close()
-
+while True:
+	html_file = open('index.html', 'w')
+	print_start()
+	# insert ticker
+	print_ticker()
+	# insert scoreboard
+	print_scoreboard()
+	print_end()
+	html_file.close()
+	print("static page regenerated, sleeping 5 seconds...")
+	time.sleep(5)
