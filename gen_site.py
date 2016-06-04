@@ -68,9 +68,9 @@ def print_start():
 	</style>
 	''' +
 	'''
-	<div class='container top-window'>
+	<div class='container'>
 		<div class='jumbotron'>
-		<div class='table-responsive'>
+		<div class='table-responsive user-counts'>
 				<table>
 				<tr>
 				<td>
