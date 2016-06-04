@@ -68,7 +68,7 @@ def print_start():
 	</style>
 	''' +
 	'''
-	<div class='container'>
+	<div class='container top-window'>
 		<div class='jumbotron'>
 		<div class='table-responsive'>
 				<table>

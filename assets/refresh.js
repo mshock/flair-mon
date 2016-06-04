@@ -8,6 +8,7 @@ setInterval(function() {
 			if (xhr.status == 200) {
 				$('.ticker').html($(data).find('.ticker').html());
 				$('.scoreboard').html($(data).find('.scoreboard').html());
+				$('.top-window').html($(data).find('.top-window').html());
 			}
 		},
 		error: function() {
