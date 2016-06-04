@@ -64,6 +64,7 @@ def print_start():
 		}
 		a:visited{ text-decoration: none;}
 		a:active { text-decoration: none;}
+		.user_counts{ }
 		
 	</style>
 	''' +
