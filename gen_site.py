@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
 import sqlite3
+import os
+import configparser
+
+config = configparser.ConfigParser()
+config.read('flair_parse.cfg')
+os.chdir(config.get('server', 'path'))
 
 num_rows = 21
 
