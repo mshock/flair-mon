@@ -23,6 +23,9 @@ flair_css = ''
 for flair_name, (x, y) in flair_coords:
 	x_coord = x * flair_width * -1
 	y_coord = y * flair_height * -1
+	if (flair_name == 'default'): 
+		x_coord = -2
+		y_coord = -2
 	flair_css = flair_css + '''
 		#{}_flair {{
 			width: {}px;
@@ -178,9 +181,9 @@ def print_ticker():
 				<td style='padding-top: 1.5em;' valign='middle' align='left'>{}</td>
 				{}</td>
 				<td style='padding-top: 1.5em;' valign='middle' align='center'>>></td>
-				<td><img id='{}_flair' src='./assets/img_trans.gif'></td>
+				<td><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;' src='./assets/img_trans.gif'></td>
 			</tr>
-			'''.format(tick_color, tick_type, user, ("<td style='padding-left: 2.5em;'><img id='{}_flair' src='./assets/img_trans.gif'>".format(flair_from) if flair_from else "<td style='padding-top: 1.5em;' valign='middle' align='center'>None"), flair_to))
+			'''.format(tick_color, tick_type, user, ("<td style='padding-left: 2.5em;'><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;' src='./assets/img_trans.gif'>".format(flair_from, tick_color) if flair_from else "<td style='padding-top: 1.5em;' valign='middle' align='center'>None"), flair_to, tick_color))
 		
 	html_file.write("</table></div></div>")
 
@@ -223,13 +226,13 @@ def print_scoreboard():
 		html_file.write('''
 		<tr style='color:{}'>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td>
-			<td><img id='{}_flair' src='./assets/img_trans.gif'>{}</td>
+			<td><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;' src='./assets/img_trans.gif'>{}</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}%</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
 		</tr>
-		'''.format(score_color, rank, name, name, count, percent, change, shift_text))
+		'''.format(score_color, rank, name, score_color, name, count, percent, change, shift_text))
 		
 	html_file.write("</table></div></div>")
 
