@@ -16,7 +16,7 @@ flair_width = 50;
 flair_height = 45;
 flair_coords = zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(),
  [
-	[1, 10], [1, 19], [1, 20], [1, 12], [1, 17], [1, 15], [1, 4], [1, 18], [1, 13], [1, 7], [1, 5], [1, 9], [1, 16], [1, 2], [1, 10], [1, 3], [1, 14], [1, 1], [1, 6], [1, 8], [1, 0]
+	[1, 11], [1, 19], [1, 20], [1, 12], [1, 17], [1, 15], [1, 4], [1, 18], [1, 13], [1, 7], [1, 5], [1, 9], [1, 16], [1, 2], [1, 10], [1, 3], [1, 14], [1, 1], [1, 6], [1, 8], [1, 0]
  ])
 
 flair_css = ''
