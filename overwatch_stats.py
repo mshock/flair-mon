@@ -7,6 +7,8 @@ import os
 clear = lambda: os.system('cls') if os.name == 'nt' else os.system('clear')
 from colors import red, green, yellow, magenta, cyan
 
+# TODO: make counts local client using cookie/session
+
 print_index = False
 
 # move to config file

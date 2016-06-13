@@ -4,6 +4,8 @@ import sqlite3
 import time
 
 # TODO: bring into config file 
+# TODO: mercy tab icon
+
 num_rows = 21
 
 def print_start():
