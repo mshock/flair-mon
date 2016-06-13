@@ -66,6 +66,7 @@ def print_start():
 		}
 		a:visited{ text-decoration: none;}
 		a:active { text-decoration: none;}
+		.user_counts{ }
 		
 	</style>
 	''' +
@@ -89,7 +90,7 @@ def print_start():
 					<table>
 					<tr>
 					<td>
-					( <font color='DarkGreen'>{0:<6} </font> / <font color='DarkRed'> {1:<6} </font>) - <font color='GoldenRod'>{2:>3.2f}%</font> users flaired
+					[ <font color='DarkGreen'>{0:<6} </font> / <font color='DarkRed'> {1:<6} </font> ] - ( <font color='GoldenRod'>{2:>3.2f}%</font> ) users flaired
 					</td>
 					</tr>
 					</table>
