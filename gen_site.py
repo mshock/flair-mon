@@ -8,6 +8,31 @@ import time
 
 num_rows = 21
 
+heroes = dict(zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(), [0] * 21))
+css_lookup = dict(zip('DVa Symmetra Mercy Mei Lucio Winston Junkrat Roadhog Zarya Reaper Soldier76 Tracer Pharah Genji Reinhardt Mccree Widowmaker Bastion Zenyatta Torbjorn Hanzo'.split(),
+	'R19 R10 R13 R18 R15 R06 R17 R16 R08 R05 R02 R14 R07 R20 R09 R04 R01 R11 R00 R03 R12'.split()))
+
+flair_width = 50;
+flair_height = 45;
+flair_coords = zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(),
+ [
+	[1, 10], [1, 19], [1, 20], [1, 12], [1, 17], [1, 15], [1, 4], [1, 18], [1, 13], [1, 7], [1, 5], [1, 9], [1, 16], [1, 2], [1, 10], [1, 3], [1, 14], [1, 1], [1, 6], [1, 8], [1, 0]
+ ])
+
+flair_css = ''
+for flair_name, (x, y) in flair_coords:
+	x_coord = x * flair_width * -1
+	y_coord = y * flair_height * -1
+	flair_css = flair_css + '''
+		#{}_flair {{
+			width: {}px;
+			height: {}px;
+			background: url('./assets/flair_sprites.png') {}px {}px;
+			margin-right: 1em;
+		}}
+	'''.format(flair_name, flair_width, flair_height, x_coord, y_coord)
+
+ 
 def print_start():
 	total_flaired = conn.execute("select count(1) from user where flair_id != 1").fetchone()[0]
 	total_users = conn.execute("select count(1) from user").fetchone()[0]
@@ -38,7 +63,7 @@ def print_start():
 			border-radius: 25px;
 			border: 1px solid GoldenRod;
 			}
-		table { border-collapse: separate; }
+		table { border-collapse: separate}
 		tr:first-child td:first-child { border-top-left-radius: 10px; }
 		tr:first-child td:last-child { border-top-right-radius: 10px; }
 		tr:last-child td:first-child { border-bottom-left-radius: 10px; }
@@ -67,10 +92,9 @@ def print_start():
 		a:visited{ text-decoration: none;}
 		a:active { text-decoration: none;}
 		.user_counts{ }
-		
-	</style>
-	''' +
+	''' + flair_css +
 	'''
+	</style>
 	<div class='container'>
 		<div class='jumbotron'>
 		<div class='table-responsive'>
@@ -188,7 +212,7 @@ def print_scoreboard():
 		if change >= 0: 
 			change = '+' + str(change)
 		
-		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>{}%</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, count, percent, change, shift_text))
+		html_file.write("<tr style='color:{}'><td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td><td><img id='{}_flair' src='./assets/img_trans.gif'>{}</td><td>{}</td><td>{}%</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, name, count, percent, change, shift_text))
 		
 	html_file.write("</table></div></div>")
 
@@ -198,9 +222,6 @@ def get_name(css):
 				return hero
 	return "default"
 
-heroes = dict(zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(), [0] * 21))
-css_lookup = dict(zip('DVa Symmetra Mercy Mei Lucio Winston Junkrat Roadhog Zarya Reaper Soldier76 Tracer Pharah Genji Reinhardt Mccree Widowmaker Bastion Zenyatta Torbjorn Hanzo'.split(),
-	'R19 R10 R13 R18 R15 R06 R17 R16 R08 R05 R02 R14 R07 R20 R09 R04 R01 R11 R00 R03 R12'.split()))
 
 conn = sqlite3.connect('overwatch.db')
 conn_scoreboard = sqlite3.connect('overwatch-scoreboard.db')
