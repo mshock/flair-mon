@@ -212,7 +212,7 @@ def print_scoreboard():
 		if change >= 0: 
 			change = '+' + str(change)
 		
-		html_file.write("<tr style='color:{}'><td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td><td><img id='{}_flair' src='./assets/img_trans.gif'>{}</td><td>{}</td><td>{}%</td><td>{}</td><td>{}</td></tr>\n".format(score_color, rank, name, name, count, percent, change, shift_text))
+		html_file.write("<tr style='color:{}'><td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td><td><img id='{}_flair' src='./assets/img_trans.gif'>{}</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}%</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td></tr>\n".format(score_color, rank, name, name, count, percent, change, shift_text))
 		
 	html_file.write("</table></div></div>")
 
