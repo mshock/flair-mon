@@ -181,9 +181,9 @@ def print_ticker():
 				<td style='padding-top: 1.5em;' valign='middle' align='left'>{}</td>
 				{}</td>
 				<td style='padding-top: 1.5em;' valign='middle' align='center'>>></td>
-				<td><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;' src='./assets/img_trans.gif'></td>
+				<td><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;background-color: lightgrey;' src='./assets/img_trans.gif'></td>
 			</tr>
-			'''.format(tick_color, tick_type, user, ("<td style='padding-left: 2.5em;'><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;' src='./assets/img_trans.gif'>".format(flair_from, tick_color) if flair_from else "<td style='padding-top: 1.5em;' valign='middle' align='center'>None"), flair_to, tick_color))
+			'''.format(tick_color, tick_type, user, ("<td style='padding-left: 2.5em;'><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;;background-color: lightgrey;' src='./assets/img_trans.gif'>".format(flair_from, tick_color) if flair_from else "<td style='padding-top: 1.5em;' valign='middle' align='center'>None"), flair_to, tick_color))
 		
 	html_file.write("</table></div></div>")
 
@@ -226,7 +226,7 @@ def print_scoreboard():
 		html_file.write('''
 		<tr style='color:{}'>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td>
-			<td><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;' src='./assets/img_trans.gif'>{}</td>
+			<td><img id='{}_flair' style='border: 2px solid {};border-radius: 5px;background-color: lightgrey;' src='./assets/img_trans.gif'>{}</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}%</td>
 			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
