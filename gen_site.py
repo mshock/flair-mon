@@ -34,7 +34,7 @@ def print_start():
 		.scoreboard {
 			background-color: lightgrey;
 			border-radius: 25px;
-			border: 1px solid SlateGrey;
+			border: 1px solid GoldenRod;
 			}
 		table { border-collapse: separate; }
 		tr:first-child td:first-child { border-top-left-radius: 10px; }
@@ -44,14 +44,14 @@ def print_start():
 		.ticker {
 			background-color: lightgrey;
 			border-radius: 25px;
-			border: 1px solid SlateGrey;
+			border: 1px solid GoldenRod;
 			}
 		.logo {
 			max-height: 50%;
 			max-width: 50%;
 		}
 		.jumbotron {
-			border: 1px solid SlateGrey;
+			border: 2px solid SlateGrey;
 			margin-top: 5px;
 			margin-bottom: 15px;
 			padding: 5px;
@@ -137,7 +137,7 @@ def print_ticker():
 			tick_type = 'NEW'
 			tick_color = 'Green'
 		elif flair_to != 'default' and flair_from is None:
-			tick_type = 'UPD'
+			tick_type = 'NEW'
 			tick_color = 'RoyalBlue'
 		elif flair_from == flair_to:
 			tick_type = 'UPD'
