@@ -14,9 +14,9 @@ css_lookup = dict(zip('DVa Symmetra Mercy Mei Lucio Winston Junkrat Roadhog Zary
 
 flair_width = 50;
 flair_height = 45;
-flair_coords = zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta'.split(),
+flair_coords = zip('Bastion DVa Genji Hanzo Junkrat Lucio Mccree Mei Mercy Pharah Reaper Reinhardt Roadhog Soldier76 Symmetra Torbjorn Tracer Widowmaker Winston Zarya Zenyatta default'.split(),
  [
-	[1, 11], [1, 19], [1, 20], [1, 12], [1, 17], [1, 15], [1, 4], [1, 18], [1, 13], [1, 7], [1, 5], [1, 9], [1, 16], [1, 2], [1, 10], [1, 3], [1, 14], [1, 1], [1, 6], [1, 8], [1, 0]
+	[1, 11], [1, 19], [1, 20], [1, 12], [1, 17], [1, 15], [1, 4], [1, 18], [1, 13], [1, 7], [1, 5], [1, 9], [1, 16], [1, 2], [1, 10], [1, 3], [1, 14], [1, 1], [1, 6], [1, 8], [1, 0], [0, 0]
  ])
 
 flair_css = ''
@@ -172,7 +172,15 @@ def print_ticker():
 			tick_type = 'UPD'
 			tick_color = 'FireBrick'
 		
-		html_file.write("<tr style='color:{}'><td>[{}]</td><td>{}</td><td>{}</td><td>>></td><td>{}</td></tr>\n".format(tick_color, tick_type, user, flair_from, flair_to))
+		html_file.write('''
+			<tr style='color:{}'>
+				<td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td>
+				<td style='padding-top: 1.5em;' valign='middle' align='left'>{}</td>
+				{}</td>
+				<td style='padding-top: 1.5em;' valign='middle' align='center'>>></td>
+				<td><img id='{}_flair' src='./assets/img_trans.gif'></td>
+			</tr>
+			'''.format(tick_color, tick_type, user, ("<td style='padding-left: 2.5em;'><img id='{}_flair' src='./assets/img_trans.gif'>".format(flair_from) if flair_from else "<td style='padding-top: 1.5em;' valign='middle' align='center'>None"), flair_to))
 		
 	html_file.write("</table></div></div>")
 
@@ -212,7 +220,16 @@ def print_scoreboard():
 		if change >= 0: 
 			change = '+' + str(change)
 		
-		html_file.write("<tr style='color:{}'><td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td><td><img id='{}_flair' src='./assets/img_trans.gif'>{}</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}%</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td><td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td></tr>\n".format(score_color, rank, name, name, count, percent, change, shift_text))
+		html_file.write('''
+		<tr style='color:{}'>
+			<td style='padding-top: 1.5em;' valign='middle' align='center'>[{}]</td>
+			<td><img id='{}_flair' src='./assets/img_trans.gif'>{}</td>
+			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
+			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}%</td>
+			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
+			<td style='padding-top: 1.5em;' valign='middle' align='center'>{}</td>
+		</tr>
+		'''.format(score_color, rank, name, name, count, percent, change, shift_text))
 		
 	html_file.write("</table></div></div>")
 
