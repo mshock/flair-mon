@@ -209,6 +209,7 @@ while True:
 						(flair_id, flair_name) = conn.execute("select id, name from flair where name = '{0}'".format(comment.author_flair_css_class)).fetchone()
 						flair_prev = conn.execute("select flair_id from user where name = '{0}'".format(comment.author)).fetchone()
 						flair_change = False
+						recently_flaired = False
 						if flair_prev is not None: 
 							flair_prev = flair_prev[0]
 							if flair_prev != flair_id:
